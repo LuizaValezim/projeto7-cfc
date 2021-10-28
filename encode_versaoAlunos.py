@@ -1,7 +1,6 @@
 import numpy as np
 import sounddevice as sd
 from suaBibSignal import *
-import time
 
 bib = signalMeu()
 

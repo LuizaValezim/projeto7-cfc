@@ -1,4 +1,7 @@
-
+import numpy as np
+import sounddevice as sd
+from suaBibSignal import *
+import time
 
 #Importe todas as bibliotecas
 
@@ -10,24 +13,27 @@ def todB(s):
 
 
 def main():
- 
-    #declare um objeto da classe da sua biblioteca de apoio (cedida)    
+    #declare um objeto da classe da sua biblioteca de apoio (cedida)
+    bib = signalMeu()    
     #declare uma variavel com a frequencia de amostragem, sendo 44100
     fs = 44100 # Hz
     
     #voce importou a bilioteca sounddevice como, por exemplo, sd. entao
     # os seguintes parametros devem ser setados:
     
-    sd.default.samplerate = #taxa de amostragem
+    sd.default.samplerate = fs#taxa de amostragem
     sd.default.channels = 2  #voce pode ter que alterar isso dependendo da sua placa
-    duration = #tempo em segundos que ira aquisitar o sinal acustico captado pelo mic
+    duration = 2 #tempo em segundos que ira aquisitar o sinal acustico captado pelo mic
 
 
-    # faca um printo na tela dizendo que a captacao comecará em n segundos. e entao 
+    # faca um printo na tela dizendo que a captacao comecará em n segundos. e entao
+    tempoEspera = 3
+    print(f"Gravação começará em {tempoEspera} segundos")
     #use um time.sleep para a espera
+    time.sleep(tempoEspera)
    
    #faca um print informando que a gravacao foi inicializada
-   
+    print("Gravacao iniciada")
    #declare uma variavel "duracao" com a duracao em segundos da gravacao. poucos segundos ... 
    #calcule o numero de amostras "numAmostras" que serao feitas (numero de aquisicoes)
    

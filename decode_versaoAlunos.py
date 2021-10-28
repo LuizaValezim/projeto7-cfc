@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-"""Show a text-mode spectrogram using live microphone data."""
+
 
 #Importe todas as bibliotecas
 
@@ -14,6 +13,7 @@ def main():
  
     #declare um objeto da classe da sua biblioteca de apoio (cedida)    
     #declare uma variavel com a frequencia de amostragem, sendo 44100
+    fs = 44100 # Hz
     
     #voce importou a bilioteca sounddevice como, por exemplo, sd. entao
     # os seguintes parametros devem ser setados:

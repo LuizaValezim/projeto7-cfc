@@ -49,11 +49,17 @@ def main():
     print("Gerando Tons base")
 
     f1 = dict_frequencies[numero][0]
-    sen1 = bib.generateSin(f1, gainX, duration, fs)
+    sen1, amp1 = bib.generateSin(f1, gainX, duration, fs)
     f2 = dict_frequencies[numero][1]
-    sen2 = bib.generateSin(f2, gainY, duration, fs)
+    sen2, amp2 = bib.generateSin(f2, gainY, duration, fs)
+    print(f'({f1}, {f2})')
 
-    array = sen1[1] + sen2[1]
+    array = sen1 + sen2
+    amp = amp1 + amp2
+    plt.axis([0,0.01, -1,1])
+    plt.plot(sen1, amp)
+    plt.title('Frequências Somadas')
+    bib.plotFFT(amp, fs)
 
     print("Gerando Tom referente ao símbolo : {}".format(numero))
     

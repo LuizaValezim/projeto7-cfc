@@ -21,9 +21,8 @@ def main():
     #voce importou a bilioteca sounddevice como, por exemplo, sd. entao
     # os seguintes parametros devem ser setados:
     
-    sd.default.samplerate = fs#taxa de amostragem
+    sd.default.samplerate = fs #taxa de amostragem
     sd.default.channels = 2  #voce pode ter que alterar isso dependendo da sua placa
-    duration = 2 #tempo em segundos que ira aquisitar o sinal acustico captado pelo mic
 
 
     # faca um printo na tela dizendo que a captacao comecará em n segundos. e entao
@@ -32,21 +31,25 @@ def main():
     #use um time.sleep para a espera
     time.sleep(tempoEspera)
    
-   #faca um print informando que a gravacao foi inicializada
-    print("Gravacao iniciada")
-   #declare uma variavel "duracao" com a duracao em segundos da gravacao. poucos segundos ... 
-   #calcule o numero de amostras "numAmostras" que serao feitas (numero de aquisicoes)
-   
+    #faca um print informando que a gravacao foi inicializada
+    print("Gravação iniciada")
+    #declare uma variavel "duracao" com a duracao em segundos da gravacao. poucos segundos ... 
+    duration = 2 #tempo em segundos que ira aquisitar o sinal acustico captado pelo mic
+    #calcule o numero de amostras "numAmostras" que serao feitas (numero de aquisicoes)
+    numAmostras = fs*duration
+    freqDeAmostragem = fs
+
     audio = sd.rec(int(numAmostras), freqDeAmostragem, channels=1)
     sd.wait()
     print("...     FIM")
+    
     
     #analise sua variavel "audio". pode ser um vetor com 1 ou 2 colunas, lista ...
     #grave uma variavel com apenas a parte que interessa (dados)
     
 
     # use a funcao linspace e crie o vetor tempo. Um instante correspondente a cada amostra!
-    t = np.linspace(inicio,fim,numPontos)
+    t = np.linspace(inicio, fim, numPontos)
 
     # plot do gravico  áudio vs tempo!
    

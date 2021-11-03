@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.signal.signaltools import resample
 import sounddevice as sd
 from suaBibSignal import *
 import time
@@ -7,7 +8,22 @@ from peakutils.plot import plot as pplot
 from matplotlib import pyplot
 
 #Importe todas as bibliotecas
-
+dict_frequencies = {'1': [697, 1209], 
+                    '2': [697, 1336], 
+                    '3': [697, 1477], 
+                    '4': [770, 1209], 
+                    '5': [770, 1336],
+                    '6': [770, 1477],
+                    '7': [852, 1209], 
+                    '8': [852, 1336],
+                    '9': [852, 1447],
+                    '0': [941, 1336],
+                    'A': [697, 1633],
+                    'B': [770, 1633],
+                    'C': [852, 1633],
+                    'D': [941, 1633],
+                    'X': [941, 1209],
+                    '#': [941, 1477]}
 
 #funcao para transformas intensidade acustica em dB
 def todB(s):
@@ -68,6 +84,9 @@ def main():
     
     ## Calcula e exibe o Fourier do sinal audio. como saida tem-se a amplitude e as frequencias
     xf, yf = bib.calcFFT(audio, fs)
+    for i, x in enumerate(xf):
+        if x <= 500 or x >= 1800:
+            yf[i] = 0
     plt.figure("F(y)")
     plt.plot(xf,yf)
     plt.grid()
@@ -82,16 +101,31 @@ def main():
     #voce deve tambem evitar que dois picos proximos sejam identificados, pois pequenas variacoes na
     #frequencia do sinal podem gerar mais de um pico, e na verdade tempos apenas 1.
    
-    index = peakutils.indexes(yf,thres=0.5, min_dist=30)
+    index = peakutils.indexes(yf,thres=0.1, min_dist=100)
     
     #printe os picos encontrados! 
     print(index)
-    print(t[index], yf[index])
-    pyplot.figure(figsize=(10,6))
-    pplot(t, yf, index)
-    plt.xlabel("Tempo")
-    plt.ylabel("Áudio")
-    pyplot.title('First estimate')
+    resFrequency = xf[index]
+    if len(resFrequency) != 2:
+        print("Achou mais ou menos que duas frequencias")
+        print(len(resFrequency))
+        return
+    f1 = resFrequency[0]
+    f2 = resFrequency[1]
+    print(f"Frequencias: {resFrequency[0]} e {resFrequency[1]}")
+    tol = 60
+    for n, freq in dict_frequencies.items():
+        if freq[0]+tol >= f1 >= freq[0]-tol:
+            if freq[1]+tol >= f2 >= freq[1]-tol:
+                print(f"Caractere digitado no encoder: {n}")
+                break
+
+    # print(t[index], yf[index])
+    # pyplot.figure(figsize=(10,6))
+    # pplot(t, yf, index)
+    # plt.xlabel("Tempo")
+    # plt.ylabel("Áudio")
+    # pyplot.title('First estimate')
     
     #encontre na tabela duas frequencias proximas às frequencias de pico encontradas e descubra qual foi a tecla
     

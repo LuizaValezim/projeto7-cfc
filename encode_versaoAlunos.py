@@ -43,7 +43,7 @@ def main():
     gainY  = 0.3
     #declare uma variavel com a frequencia de amostragem, sendo 44100
     fs = 44100 # Hz
-    duration = 3    #tempo em segundos que ira emitir o sinal acustico 
+    duration = 5   #tempo em segundos que ira emitir o sinal acustico 
 
     print("Gerando Tons base")
 
@@ -65,7 +65,7 @@ def main():
     #printe o grafico no tempo do sinal a ser reproduzido
     bib.plotFFT(array, fs)
     # reproduz o som
-    sd.play(array)
+    sd.play(amp, fs)
     sd.wait()
     # Exibe gráficos
     plt.show()

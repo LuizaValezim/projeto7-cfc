@@ -41,15 +41,21 @@ def main():
     numAmostras = fs*duration
     freqDeAmostragem = fs
 
-    audio = sd.rec(int(numAmostras), freqDeAmostragem, channels=1 )
+    audio = sd.rec(int(numAmostras), samplerate=freqDeAmostragem, channels=1)
     sd.wait()
     print("...     FIM")
-    
+    audio = np.squeeze(np.array(audio))
+
+    #Remover frequencias menores que 500
+    # print(np.shape(np.array(audio)))  #Pegar shape do audio
+
+    # lsFiltrada  = [0 if f <= 500 else f for f in audio]
+    # audio = lsFiltrada
     
     #analise sua variavel "audio". pode ser um vetor com 1 ou 2 colunas, lista ...
     #grave uma variavel com apenas a parte que interessa (dados)
     
-    print(audio[0])
+    # print(audio)
 
     # use a funcao linspace e crie o vetor tempo. Um instante correspondente a cada amostra!
     inicio = 0
@@ -61,13 +67,14 @@ def main():
    
     
     ## Calcula e exibe o Fourier do sinal audio. como saida tem-se a amplitude e as frequencias
-    xf, yf = bib.calcFFT(audio[:,0], fs)
+    xf, yf = bib.calcFFT(audio, fs)
     plt.figure("F(y)")
     plt.plot(xf,yf)
     plt.grid()
     plt.xlabel("Frequência")
     plt.ylabel("Intensidade")
     plt.title('Fourier audio')
+    plt.show()
     
 
     #esta funcao analisa o fourier e encontra os picos

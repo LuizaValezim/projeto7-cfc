@@ -106,7 +106,7 @@ def main():
     #printe os picos encontrados! 
     print(index)
     resFrequency = xf[index]
-    if len(resFrequency) != 2:
+    if len(resFrequency) != 2:  #Ferramenta para debugging do threshold 
         print("Achou mais ou menos que duas frequencias")
         print(len(resFrequency))
         return
@@ -114,7 +114,7 @@ def main():
     f2 = resFrequency[1]
     amp1 = yf[index][0]
     amp2 = yf[index][1]
-    print(f"Frequencias: {resFrequency[0]} e {resFrequency[1]}")
+    print(f"Frequencias de pico detectadas: {resFrequency[0]} e {resFrequency[1]}")
     tol = 60
     for n, freq in dict_frequencies.items():
         if freq[0]+tol >= f1 >= freq[0]-tol:

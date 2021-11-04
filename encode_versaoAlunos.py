@@ -60,7 +60,7 @@ def main():
     plt.plot(array, amp)
     plt.xlabel('Tempo')
     plt.ylabel('Amplitude')
-    plt.title('Frequências Somadas')
+    plt.title('Frequências Somadas Encoder')
     bib.plotFFT(amp, fs)
 
     print("Gerando Tom referente ao símbolo : {}".format(numero))

@@ -92,7 +92,7 @@ def main():
     plt.grid()
     plt.xlabel("Frequência")
     plt.ylabel("Intensidade")
-    plt.title('Fourier audio')
+    plt.title('Fourier Decoder')
     plt.show()
     
 
@@ -112,12 +112,16 @@ def main():
         return
     f1 = resFrequency[0]
     f2 = resFrequency[1]
+    amp1 = yf[index][0]
+    amp2 = yf[index][1]
     print(f"Frequencias: {resFrequency[0]} e {resFrequency[1]}")
     tol = 60
     for n, freq in dict_frequencies.items():
         if freq[0]+tol >= f1 >= freq[0]-tol:
             if freq[1]+tol >= f2 >= freq[1]-tol:
                 print(f"Caractere digitado no encoder: {n}")
+                # f1 = freq[0]  #Frequencias hardcoded para serem perfeitas
+                # f2 = freq[1]
                 break
 
     # print(t[index], yf[index])
@@ -126,13 +130,23 @@ def main():
     # plt.xlabel("Tempo")
     # plt.ylabel("Áudio")
     # pyplot.title('First estimate')
-    
-    #encontre na tabela duas frequencias proximas às frequencias de pico encontradas e descubra qual foi a tecla
-    
-    # print(f"Com a frequência {} e {}, a tecla pressionada foi {}")
-    
+    gainX  = 0.3
+    gainY  = 0.3
+    duration = 5
+    #Gera ondas:
+    sen1, amp1 = bib.generateSin(f1, gainX, duration, fs)
+    sen2, amp2 = bib.generateSin(f2, gainY, duration, fs)
+    sinal= sen1 + sen2
+    sumAmp = amp1 + amp2
   
     ## Exibe gráficos
+
+    plt.figure("Sinal no Tempo")
+    plt.axis([0,0.01, -1,1])
+    plt.plot(sinal , sumAmp)
+    plt.title('Sinal recebido')
+    plt.xlabel('Tempo')
+    plt.ylabel('Amplitude')
     plt.show()
 
 if __name__ == "__main__":

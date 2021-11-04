@@ -50,20 +50,23 @@ def main():
     f1 = dict_frequencies[numero][0]
     sen1, amp1 = bib.generateSin(f1, gainX, duration, fs)
     f2 = dict_frequencies[numero][1]
+    
     sen2, amp2 = bib.generateSin(f2, gainY, duration, fs)
     print(f'({f1}, {f2})')
 
     array = sen1 + sen2
     amp = amp1 + amp2
     plt.axis([0,0.01, -1,1])
-    plt.plot(sen1, amp)
+    plt.plot(array, amp)
+    plt.xlabel('Tempo')
+    plt.ylabel('Amplitude')
     plt.title('Frequências Somadas')
     bib.plotFFT(amp, fs)
 
     print("Gerando Tom referente ao símbolo : {}".format(numero))
     
     #printe o grafico no tempo do sinal a ser reproduzido
-    bib.plotFFT(array, fs)
+    # bib.plotFFT(array, fs)
     # reproduz o som
     sd.play(amp, fs)
     sd.wait()

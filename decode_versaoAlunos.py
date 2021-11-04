@@ -101,7 +101,8 @@ def main():
     #voce deve tambem evitar que dois picos proximos sejam identificados, pois pequenas variacoes na
     #frequencia do sinal podem gerar mais de um pico, e na verdade tempos apenas 1.
    
-    index = peakutils.indexes(yf,thres=0.2, min_dist=200)
+    index = peakutils.indexes(yf,thres=0.05, min_dist=50)
+    print(index)
     
     #printe os picos encontrados! 
     # print(index)
@@ -111,6 +112,7 @@ def main():
         print("Achou mais ou menos que duas frequencias")
         print(len(resFrequency))
         # return
+
     tol = 10
     for f in resFrequency:
         for i in dict_frequencies.values():
@@ -125,8 +127,8 @@ def main():
     # f2 = resFrequency[1]
     amp1 = yf[index][0]
     amp2 = yf[index][1]
-    print(f"Frequencias de pico detectadas: {resFrequency[0]} e {resFrequency[1]}")
-    tol = 60
+    print(f"Frequencias de pico detectadas: {f1} e {f2}")
+    tol = 30
     for n, freq in dict_frequencies.items():
         if freq[0]+tol >= f1 >= freq[0]-tol:
             if freq[1]+tol >= f2 >= freq[1]-tol:
